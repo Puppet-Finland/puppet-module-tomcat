@@ -1,6 +1,9 @@
 class tomcat (
   $version = 'present',
   $package = $tomcat::params::tomcat_package,
+  $allow_address_ipv4 = '127.0.0.1',
+  $allow_address_ipv6 = '::1'
+
 ) inherits tomcat::params {
   include java
 
@@ -23,4 +26,10 @@ class tomcat (
     ensure  => directory,
   }
 
+  if tagged('packetfilter') {
+    class { 'tomcat::packetfilter':
+      allow_address_ipv4 => $allow_address_ipv4,
+      allow_address_ipv6 => $allow_address_ipv6,
+    }
+  }
 }
