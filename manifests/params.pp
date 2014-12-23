@@ -14,6 +14,7 @@ class tomcat::params {
       $user_homedir    = '/usr/share/tomcat6'
     }
     'Debian': {
+      $policy_dir      = '/etc/tomcat6/policy.d'
       $admin_package   = 'tomcat6-admin'
       $autodeploy_dir  = '/var/lib/tomcat6/webapps'
       $docs_package    = 'tomcat6-docs'
