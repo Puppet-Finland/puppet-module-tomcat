@@ -1,3 +1,8 @@
+#
+# == Class: tomcat::params
+#
+# Set some parameters based on the operating system.
+#
 class tomcat::params {
 
   case $::osfamily {
@@ -9,7 +14,7 @@ class tomcat::params {
       $group           = 'tomcat'
       $service         = 'tomcat6'
       $staging_dir     = '/var/lib/tomcat6/staging'
-      $tomcat_package  = 'tomcat6'
+      $package_name    = 'tomcat6'
       $user            = 'tomcat'
       $user_homedir    = '/usr/share/tomcat6'
     }
@@ -21,7 +26,7 @@ class tomcat::params {
       $group           = 'tomcat6'
       $service         = 'tomcat6'
       $staging_dir     = '/var/lib/tomcat6/staging'
-      $tomcat_package  = 'tomcat6'
+      $package_name    = 'tomcat6'
       $user            = 'tomcat6'
       $user_homedir    = '/usr/share/tomcat6'
     }
@@ -32,7 +37,7 @@ class tomcat::params {
       $group           = 'tomcat'
       $service         = 'tomcat6'
       $staging_dir     = '/usr/share/tomcat6/staging'
-      $tomcat_package  = 'tomcat6'
+      $package_name    = 'tomcat6'
       $user            = 'tomcat'
       $user_homedir    = '/usr/share/tomcat6'
     }

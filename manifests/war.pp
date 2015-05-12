@@ -1,10 +1,20 @@
-define tomcat::war(
+#
+# == Define: tomcat::war
+#
+# Install a WAR file
+#
+define tomcat::war
+(
   $source,
   $ensure  = present,
   $staging = undef,
   $warfile = undef,
   $replace = false,
-) {
+)
+{
+
+  include ::tomcat::params
+
   $deploy_symlink = "${tomcat::params::autodeploy_dir}/${name}"
 
   # Retrieve (and enforce) the *.war name component of the source
@@ -12,7 +22,7 @@ define tomcat::war(
     undef   => regsubst($source, '.*/([^/]*\.war$)|.*', '\1'),
     default => $warfile,
   }
-  if ! $use_warfile { fail("Must specify a warfile (*.war) as source") }
+  if ! $use_warfile { fail('Must specify a warfile (*.war) as source') }
 
   # Use the staging directory + the warfile name as the default staging
   # location

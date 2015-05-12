@@ -1,35 +1,67 @@
-class tomcat (
-  $version = 'present',
-  $package = $tomcat::params::tomcat_package,
-  $allow_address_ipv4 = '127.0.0.1',
-  $allow_address_ipv6 = '::1'
+#
+# == Class: tomcat
+#
+# Install and configure Tomcat and setup wars
+#
+# == Parameters
+#
+# [*manage*]
+#  Whether to manage tomcat with Puppet or not. Valid values are 'yes' (default) 
+#  and 'no'.
+# [*ensure*]
+#   Status of Tomcat. Valid values are 'present' (default) and 'absent'.
+# [*package_name*]
+#   Name of the Tomcat package. Defaults to $::tomcat::params::package_name.
+# [*allow_address_ipv4*]
+#   IPv4 address/network from which to allow connections through the firewall.
+#   Only affects packet filtering rules on nodes which have included the
+#   'packetfilter' class. A special value, 'any', can be used to allow any hosts
+#   from any IPv4 address to this service. Defaults to '127.0.0.1'.
+# [*allow_address_ipv6*]
+#   IPv6 address/network from which to allow connections through the firewall.
+#   The same options/limitations apply as for $allow_address_ipv4. Defaults to
+#   '::1'.
+#
+# == Authors
+#
+# Reid Vandewiele / Puppet Labs
+# 
+# Samuli Seppänen <samuli@openvpn.net>
+#
+class tomcat
+(
+    $manage = 'yes',
+    $ensure = 'present',
+    $package_name = $::tomcat::params::package_name,
+    $allow_address_ipv4 = '127.0.0.1',
+    $allow_address_ipv6 = '::1'
 
-) inherits tomcat::params {
-  include java
+) inherits tomcat::params
+{
 
-  package { 'tomcat':
-    ensure => $version,
-    name   => $package,
-    before => Service['tomcat'],
-  }
+if $manage == 'yes' {
 
-  service { 'tomcat':
-    ensure => running,
-    enable => true,
-    name   => $tomcat::params::service,
-  }
+    include ::java
 
-  file { $tomcat::params::autodeploy_dir:
-    ensure  => directory,
-  }
-  file { $tomcat::params::staging_dir:
-    ensure  => directory,
-  }
-
-  if tagged('packetfilter') {
-    class { 'tomcat::packetfilter':
-      allow_address_ipv4 => $allow_address_ipv4,
-      allow_address_ipv6 => $allow_address_ipv6,
+    class { '::tomcat::install':
+        ensure       => $ensure,
+        package_name => $package_name,
     }
-  }
+
+    class { '::tomcat::service':
+        ensure => $ensure,
+    }
+
+    class { '::tomcat::config':
+        ensure => $ensure,
+    }
+
+    if tagged('packetfilter') {
+        class { '::tomcat::packetfilter':
+            ensure             => $ensure,
+            allow_address_ipv4 => $allow_address_ipv4,
+            allow_address_ipv6 => $allow_address_ipv6,
+        }
+    }
+}
 }

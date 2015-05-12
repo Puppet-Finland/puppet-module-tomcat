@@ -1,0 +1,14 @@
+{
+  "name": "puppetfinland-tomcat",
+  "version": "0.5.1",
+  "author": "Puppet-Finland team and Puppet Labs SE team",
+  "license": "Apache 2.0",
+  "summary": "Deploy and manage Tomcat services",
+  "source": "https://github.com/Puppet-Finland/puppet-module-tomcat.git",
+  "project_page": "https://github.com/Puppet-Finland/puppet-module-tomcat",
+  "dependencies": [
+    { "name": "puppetfinland/packetfilter", "version_requirement": ">= 0.5.0" },
+    { "name": "puppetlabs/java", "version_requirement": ">= 0.2.0" },
+    { "name": "nanliu/staging", "version_requirement": ">= 0.2.1" }
+  ]
+}
