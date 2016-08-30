@@ -19,16 +19,23 @@ class tomcat::params {
       $user_homedir    = '/usr/share/tomcat6'
     }
     'Debian': {
-      $policy_dir      = '/etc/tomcat6/policy.d'
-      $admin_package   = 'tomcat6-admin'
-      $autodeploy_dir  = '/var/lib/tomcat6/webapps'
-      $docs_package    = 'tomcat6-docs'
-      $group           = 'tomcat6'
-      $service         = 'tomcat6'
-      $staging_dir     = '/var/lib/tomcat6/staging'
-      $package_name    = 'tomcat6'
-      $user            = 'tomcat6'
-      $user_homedir    = '/usr/share/tomcat6'
+
+      # Determine tomcat version
+      $v = $::lsbdistcodename ? {
+        'xenial' => '7',
+        default  => '6',
+      }
+
+      $policy_dir      = "/etc/tomcat${v}/policy.d"
+      $admin_package   = "tomcat${v}-admin"
+      $autodeploy_dir  = "/var/lib/tomcat${v}/webapps"
+      $docs_package    = "tomcat${v}-docs"
+      $group           = "tomcat${v}"
+      $service         = "tomcat${v}"
+      $staging_dir     = "/var/lib/tomcat${v}/staging"
+      $package_name    = "tomcat${v}"
+      $user            = "tomcat${v}"
+      $user_homedir    = "/usr/share/tomcat${v}"
     }
     'Suse': {
       $admin_package   = [ 'tomcat6-admin-webapps', 'tomcat6-webapps' ]
