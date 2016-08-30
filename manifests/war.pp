@@ -5,11 +5,11 @@
 #
 define tomcat::war
 (
-  $source,
-  $ensure  = present,
-  $staging = undef,
-  $warfile = undef,
-  $replace = false,
+  String                   $source,
+  Enum['present','absent'] $ensure  = 'present',
+  Optional[String]         $staging = undef,
+  Optional[String]         $warfile = undef,
+  Boolean                  $replace = false,
 )
 {
 

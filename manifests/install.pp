@@ -5,8 +5,8 @@
 #
 class tomcat::install
 (
-    $ensure,
-    $package_name
+    Enum['present', 'absent'] $ensure,
+    String                    $package_name
 
 ) inherits tomcat::params
 {

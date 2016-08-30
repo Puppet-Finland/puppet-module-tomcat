@@ -6,8 +6,8 @@
 # == Parameters
 #
 # [*manage*]
-#  Whether to manage tomcat with Puppet or not. Valid values are 'yes' (default) 
-#  and 'no'.
+#  Whether to manage tomcat with Puppet or not. Valid values are true (default) 
+#  and false.
 # [*ensure*]
 #   Status of Tomcat. Valid values are 'present' (default) and 'absent'.
 # [*package_name*]
@@ -30,16 +30,16 @@
 #
 class tomcat
 (
-    $manage = 'yes',
-    $ensure = 'present',
-    $package_name = $::tomcat::params::package_name,
-    $allow_address_ipv4 = '127.0.0.1',
-    $allow_address_ipv6 = '::1'
+    Boolean $manage = true,
+            $ensure = 'present',
+            $package_name = $::tomcat::params::package_name,
+            $allow_address_ipv4 = '127.0.0.1',
+            String $allow_address_ipv6 = '::1'
 
 ) inherits tomcat::params
 {
 
-if $manage == 'yes' {
+if $manage {
 
     include ::java
 

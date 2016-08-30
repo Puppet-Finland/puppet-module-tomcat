@@ -7,9 +7,9 @@
 #
 class tomcat::packetfilter
 (
-    $ensure,
-    $allow_address_ipv4,
-    $allow_address_ipv6
+    Enum['present','absent'] $ensure,
+    String                   $allow_address_ipv4,
+    String                   $allow_address_ipv6
 
 ) inherits tomcat::params
 {

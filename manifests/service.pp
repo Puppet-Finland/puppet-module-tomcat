@@ -5,7 +5,7 @@
 #
 class tomcat::service
 (
-    $ensure
+    Enum['present','absent'] $ensure
 
 ) inherits tomcat::params
 {
