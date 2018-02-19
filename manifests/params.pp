@@ -37,17 +37,5 @@ class tomcat::params {
       $user            = "tomcat${v}"
       $user_homedir    = "/usr/share/tomcat${v}"
     }
-    'Suse': {
-      $admin_package   = [ 'tomcat6-admin-webapps', 'tomcat6-webapps' ]
-      $autodeploy_dir  = '/usr/share/tomcat6/webapps'
-      $docs_package    = 'tomcat6-docs-webapp'
-      $group           = 'tomcat'
-      $service         = 'tomcat6'
-      $staging_dir     = '/usr/share/tomcat6/staging'
-      $package_name    = 'tomcat6'
-      $user            = 'tomcat'
-      $user_homedir    = '/usr/share/tomcat6'
-    }
   }
-
 }
