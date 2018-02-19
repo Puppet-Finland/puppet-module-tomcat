@@ -1,6 +1,6 @@
 {
   "name": "puppetfinland-tomcat",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Puppet-Finland team and Puppet Labs SE team",
   "license": "Apache 2.0",
   "summary": "Deploy and manage Tomcat services",
