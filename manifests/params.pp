@@ -23,6 +23,7 @@ class tomcat::params {
       # Determine tomcat version
       $v = $::lsbdistcodename ? {
         'xenial' => '8',
+        'trusty' => '7',
         default  => '6',
       }
 
