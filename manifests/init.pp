@@ -6,8 +6,11 @@
 # == Parameters
 #
 # [*manage*]
-#  Whether to manage tomcat with Puppet or not. Valid values are true (default) 
-#  and false.
+#   Whether to manage tomcat with Puppet or not. Valid values are true (default) 
+#   and false.
+# [*manage_packetfilter*]
+#   Whether to manage packet filtering rules with Puppet. Valid values are true (default)
+#   and false.
 # [*ensure*]
 #   Status of Tomcat. Valid values are 'present' (default) and 'absent'.
 # [*package_name*]
@@ -31,6 +34,7 @@
 class tomcat
 (
     Boolean $manage = true,
+    Boolean $manage_packetfilter = true,
             $ensure = 'present',
             $package_name = $::tomcat::params::package_name,
             $allow_address_ipv4 = '127.0.0.1',
@@ -56,7 +60,7 @@ if $manage {
         ensure => $ensure,
     }
 
-    if tagged('packetfilter') {
+    if $manage_packetfilter {
         class { '::tomcat::packetfilter':
             ensure             => $ensure,
             allow_address_ipv4 => $allow_address_ipv4,
