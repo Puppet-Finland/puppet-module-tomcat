@@ -28,16 +28,18 @@ class tomcat::packetfilter
         default => $allow_address_ipv4,
     }
 
-    firewall { '003 ipv4 accept tomcat':
+    @firewall { '003 ipv4 accept tomcat':
         provider => 'iptables',
         source   => $source_v4,
         dport    => 8080,
+        tag      => 'default',
     }
 
-    firewall { '004 ipv4 accept tomcat':
+    @firewall { '004 ipv4 accept tomcat':
         provider => 'iptables',
         source   => $source_v4,
         dport    => 8443,
+        tag      => 'default',
     }
 
     # IPv6 rules
@@ -46,15 +48,17 @@ class tomcat::packetfilter
         default => $allow_address_ipv6,
     }
 
-    firewall { '003 ipv6 accept tomcat':
+    @firewall { '003 ipv6 accept tomcat':
         provider => 'ip6tables',
         source   => $source_v6,
         dport    => 8080,
+        tag      => 'default',
     }
 
-    firewall { '004 ipv6 accept tomcat':
+    @firewall { '004 ipv6 accept tomcat':
         provider => 'ip6tables',
         source   => $source_v6,
         dport    => 8443,
+        tag      => 'default',
     }
 }
